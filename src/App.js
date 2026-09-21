@@ -20,10 +20,10 @@ function App() {
   const [editPrice, setEditPrice] = useState('');
 
   // STARE NOUĂ PENTRU FILTRUL DE PREȚ (setăm 2000$ ca valoare maximă implicită)
-  const [maxPrice, setMaxPrice] = useState(2000);
+  const [maxPrice, setMaxPrice] = useState(10000);
 
   const fetchListings = () => {
-    fetch('http://localhost:8080/api/listings')
+    fetch('https://airbnb-clone-backend-u392.onrender.com/api/listings')
       .then(response => response.json())
       .then(data => setListings(data))
       .catch(error => console.error('Eroare la preluarea datelor:', error));
@@ -37,7 +37,7 @@ function App() {
     e.preventDefault();
     const newListing = { name, neighborhood, price: parseFloat(price) };
 
-    fetch('http://localhost:8080/api/listings', {
+    fetch('https://airbnb-clone-backend-u392.onrender.com/api/listings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newListing),
@@ -54,7 +54,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:8080/api/listings/${id}`, { method: 'DELETE' })
+    fetch(`https://airbnb-clone-backend-u392.onrender.com/api/listings/${id}`, { method: 'DELETE' })
       .then(response => { if (response.ok) fetchListings(); })
       .catch(error => console.error('Eroare:', error));
   };
@@ -63,7 +63,7 @@ function App() {
     e.preventDefault();
     const updatedData = { name: editName, neighborhood: editNeighborhood, price: parseFloat(editPrice) };
 
-    fetch(`http://localhost:8080/api/listings/${editingListing.id}`, {
+    fetch(`https://airbnb-clone-backend-u392.onrender.com/api/listings/${editingListing.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedData),
@@ -146,7 +146,7 @@ function App() {
           <input 
             type="range" 
             min="10" 
-            max="2000" 
+            max="10000" 
             step="10"
             value={maxPrice} 
             onChange={(e) => { setMaxPrice(Number(e.target.value)); setCurrentPage(1); }} 
